@@ -50,7 +50,7 @@ public class Main {
             moveQ = new LinkedList<>(); // 움직일 기사
 
             // 이동 가능 check (boolean)
-            if (!movePossible(i, d) || knights[i] == null) continue;
+            if (knights[i] == null || !movePossible(i, d)) continue;
 
             // 이동
             // 기사별 데미지 check
@@ -85,22 +85,18 @@ public class Main {
                     // 이동 불가
                     if (r <= 0 || r >= L + 1 || c <= 0 || c >= L + 1 || map[r][c] == 2) return false;
 
-                    set.add(knightMap[r][c]);
-
                     // 이동 가능 && 밀어낼 대상 X
-                    if (map[r][c] == 0) continue;
+                    if (knightMap[r][c] == 0 || knightMap[r][c] == knightNum) continue;
 
                     // 이동 가능 && 밀어낼 대상 O (대상 큐에 넣기
-                    if (knightMap[r][c] != knightNum && knightMap[r][c] > 0) {
-                        q.offer(knightMap[r][c]);
-                    }
+                    q.offer(knightMap[r][c]);
+                    set.add(knightMap[r][c]);
                 }
             }
         }
 
         moveQ.offer(i);
-        for(Integer s : set){
-            if(s == 0) continue;
+        for (Integer s : set) {
             moveQ.add(s);
         }
         return true;
@@ -117,7 +113,7 @@ public class Main {
             int nEndR = now.endR + drc[0][d];
             int nEndC = now.endC + drc[1][d];
 
-            if(knightNum != i) {
+            if (knightNum != i) {
                 // damage check
                 for (int r = nStartR; r <= nEndR; r++) {
                     for (int c = nStartC; c <= nEndC; c++) {
@@ -134,11 +130,11 @@ public class Main {
             }
         }
 
-        knightMap = new int[L+1][L+1];
+        knightMap = new int[L + 1][L + 1];
 
         // knightMap 갱신
-        for(int k = 1; k <= 30; k++){
-            if(knights[k] != null) fillKnightMap(k, knights[k]);
+        for (int k = 1; k <= 30; k++) {
+            if (knights[k] != null) fillKnightMap(k, knights[k]);
         }
     }
 
