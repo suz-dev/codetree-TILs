@@ -134,7 +134,7 @@ public class Main {
 		// num, distance, r, c
 		PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)->{
 			if(o1[1] == o2[1]) {
-				if(o1[2] == o2[2]) return o2[3] - o1[3];
+				if(o1[2] == o2[2])return o2[3] - o1[3];
 				return o2[2] - o1[2];
 			}
 			return o1[1] - o2[1];
@@ -186,17 +186,16 @@ public class Main {
 	}
 	
 	// crush
-	public static void crush(int num, int dir, int score) {
-				
+	public static void crush(int num, int dir, int score) {		
 		// score, time 
 		Santa nowSanta = santaInfo[num];
 		nowSanta.score += score;
 		nowSanta.out = 0;
-		
+				
 		// move
 		int nr = nowSanta.r + drc[0][dir] * score;
 		int nc = nowSanta.c + drc[1][dir] * score;
-		
+				
 		// out
 		if(!rangeCheck(nr, nc)) {
 			nowSanta.out = -1;
@@ -205,15 +204,12 @@ public class Main {
 		}
 		
 		// just move
-		if(map[nr][nc] == 0) {
-			santaInfo[num].r = nr;
-			santaInfo[num].c = nc;
-			return;
-		}
-			
+		santaInfo[num].r = nr;
+		santaInfo[num].c = nc;
+
 		// relation
-		if(map[nr][nc] != num && map[nr][nc] > 0) {
-			relation(num, nr, nc, dir);
+		if(map[nr][nc] != num && map[nr][nc] > 0 ) {
+			relation(map[nr][nc], nr, nc, dir);
 			return;
 		}
 	}
@@ -228,7 +224,7 @@ public class Main {
 			santaInfo[num].out = -1;
 			failedSanta++;
 			return;
-		}
+		}		
 		
 		santaInfo[num].r = nr;
 		santaInfo[num].c = nc;
@@ -254,14 +250,13 @@ public class Main {
 			Santa santa = santaInfo[p];
 			if(santa.out > -1) map[santa.r][santa.c] = p;
 		}
-		
 	}
 	
 	public static boolean rangeCheck(int r, int c) {
 		if(r <= 0 || c > N || c <= 0 || r > N) return false;
 		return true;
 	}
-	
+
 	public static class Santa {
 		int r, c, out, score;
 
