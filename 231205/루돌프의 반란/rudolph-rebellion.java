@@ -212,7 +212,7 @@ public class Main {
 		}
 			
 		// relation
-		if(map[nr][nc] > 0) {
+		if(map[nr][nc] != num && map[nr][nc] > 0) {
 			relation(num, nr, nc, dir);
 			return;
 		}
