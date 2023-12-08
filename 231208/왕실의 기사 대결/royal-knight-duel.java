@@ -111,11 +111,15 @@ public class Main {
 			int nStartC = knight.startC + drc[1][d];
 			int nEndR = knight.endR + drc[0][d];
 			int nEndC = knight.endC + drc[1][d];
-			
+            
 			int power = knight.power;
-			int damage = knight.damage + damage(nStartR, nStartC, nEndR, nEndC);
-			
-			int state = knight.state;
+			int damage = knight.damage;
+
+            if(s != i){
+                damage = knight.damage + damage(nStartR, nStartC, nEndR, nEndC);
+            }
+
+            int state = knight.state;
 			if(power - damage <= 0) state = 0;
 			
 			knightInfo[s] = new Knight(nStartR, nStartC, nEndR, nEndC, power, damage, state);
