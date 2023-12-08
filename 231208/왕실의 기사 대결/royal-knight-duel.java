@@ -56,7 +56,7 @@ public class Main {
 			int i = Integer.parseInt(st.nextToken());
 			int d = Integer.parseInt(st.nextToken());
 			
-			if(movePossible(i,d)) updateKnightInfo(i, d);
+			if(knightInfo[i].state == 1 && movePossible(i,d)) updateKnightInfo(i, d);
 			
 			updateKnightMap();
 		}
