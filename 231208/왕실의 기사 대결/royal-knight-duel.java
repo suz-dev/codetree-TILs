@@ -77,10 +77,11 @@ public class Main {
 		q.add(i);
 		
 		set = new HashSet<>();
-
+		set.add(i);
+		
 		while(!q.isEmpty()) {
 			int now = q.poll();
-						
+			
 			Knight nowKnight = knightInfo[now];
 			
 			for(int r = nowKnight.startR; r <= nowKnight.endR; r++) {
@@ -103,23 +104,23 @@ public class Main {
 		return true;
 	}
 	
-	public static void updateKnightInfo(int i, int d) {				
+	public static void updateKnightInfo(int i, int d) {		
 		for(Integer s : set) {
 			Knight knight = knightInfo[s];
-									
+
 			int nStartR = knight.startR + drc[0][d];
 			int nStartC = knight.startC + drc[1][d];
 			int nEndR = knight.endR + drc[0][d];
 			int nEndC = knight.endC + drc[1][d];
-            
+			
 			int power = knight.power;
 			int damage = knight.damage;
-
-            if(s != i){
-                damage = knight.damage + damage(nStartR, nStartC, nEndR, nEndC);
-            }
-
-            int state = knight.state;
+		
+			if(s != i) {
+				damage = knight.damage + damage(nStartR, nStartC, nEndR, nEndC);
+			}
+			
+			int state = knight.state;
 			if(power - damage <= 0) state = 0;
 			
 			knightInfo[s] = new Knight(nStartR, nStartC, nEndR, nEndC, power, damage, state);
@@ -162,6 +163,8 @@ public class Main {
 		}
 	}
 	
+	
+
 	public static class Knight {
 		int startR, startC, endR, endC, power, damage, state;
 
