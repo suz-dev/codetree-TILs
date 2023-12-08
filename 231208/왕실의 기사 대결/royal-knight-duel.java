@@ -107,7 +107,7 @@ public class Main {
 	public static void updateKnightInfo(int i, int d) {		
 		for(Integer s : set) {
 			Knight knight = knightInfo[s];
-
+			
 			int nStartR = knight.startR + drc[0][d];
 			int nStartC = knight.startC + drc[1][d];
 			int nEndR = knight.endR + drc[0][d];
@@ -115,13 +115,12 @@ public class Main {
 			
 			int power = knight.power;
 			int damage = knight.damage;
-		
+			int state = knight.state;
+			
 			if(s != i) {
 				damage = knight.damage + damage(nStartR, nStartC, nEndR, nEndC);
+				state = (power - damage <= 0 ? 0 : 1);
 			}
-			
-			int state = knight.state;
-			if(power - damage <= 0) state = 0;
 			
 			knightInfo[s] = new Knight(nStartR, nStartC, nEndR, nEndC, power, damage, state);
 		}
