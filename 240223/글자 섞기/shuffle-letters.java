@@ -32,20 +32,22 @@ public class Main {
 
             ArrayList<String> list1 = new ArrayList<>();
             ArrayList<String> list2 = new ArrayList<>();
-      
+
+            int cnt1 = 1;
             for(int i = 0; i < n; i++){
                 if(i != idx && now.compareTo(arr[1][i]) > 0) {
-                    list1.add(arr[1][i]);
+                    cnt1++;
                 }
             }
 
+            int cnt2 = 1;
             for(int i = 0; i < n; i++){
                 if(i != idx && reverseNow.compareTo(arr[0][i]) > 0) {
-                    list2.add(arr[0][i]);
+                    cnt2++;
                 }
             }
 
-            System.out.println((list1.size() + 1) + " " + (list2.size()+1));
+            System.out.println(cnt1 + " " + cnt2);
             idx++;
         }
     }
