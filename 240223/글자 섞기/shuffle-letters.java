@@ -30,9 +30,6 @@ public class Main {
             String now = arr[0][idx];
             String reverseNow = arr[1][idx];
 
-            ArrayList<String> list1 = new ArrayList<>();
-            ArrayList<String> list2 = new ArrayList<>();
-
             int cnt1 = 1;
             for(int i = 0; i < n; i++){
                 if(i != idx && now.compareTo(arr[1][i]) > 0) {
