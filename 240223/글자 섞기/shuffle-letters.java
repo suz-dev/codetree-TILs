@@ -6,46 +6,37 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
-        String[][] arr = new String[2][n];
+        String[] arr = new String[n];
+        String[] reverseArr = new String[n];
 
+        // 문자열 입력 및 정렬
         for(int i = 0; i < n; i++){
             String str = br.readLine();
-            ArrayList<Character> tmp = new ArrayList();
-            for(int j = 0; j < str.length(); j++){
-                tmp.add(str.charAt(j));
-            }
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
 
-            Collections.sort(tmp);
-            StringBuilder sb = new StringBuilder();
-            for(int j = 0; j < str.length(); j++){
-                sb.append(tmp.get(j));
-            }
-
-            arr[0][i] = sb.toString();  // 알파벳 오름차순
-            arr[1][i] = sb.reverse().toString();    // 알파벳 내림차순
+            arr[i] = new String(chars);  // 알파벳 오름차순
+            reverseArr[i] = new StringBuilder(arr[i]).reverse().toString();    // 알파벳 내림차순
         }
 
-        int idx = 0;
-        while(idx < n){
-            String now = arr[0][idx];
-            String reverseNow = arr[1][idx];
+        // 문자열 비교
+        for(int i = 0; i < n; i++){
+            String now = arr[i];
+            String reverseNow = reverseArr[i];
 
-            int cnt1 = 1;
-            for(int i = 0; i < n; i++){
-                if(i != idx && now.compareTo(arr[1][i]) > 0) {
-                    cnt1++;
-                }
-            }
+            String[] tmpArr = Arrays.copyOf(arr, arr.length);
+            String[] tmpReverseArr = Arrays.copyOf(reverseArr, reverseArr.length);
 
-            int cnt2 = 1;
-            for(int i = 0; i < n; i++){
-                if(i != idx && reverseNow.compareTo(arr[0][i]) > 0) {
-                    cnt2++;
-                }
-            }
+            tmpArr[i] = reverseNow;
+            tmpReverseArr[i] = now;
 
-            System.out.println(cnt1 + " " + cnt2);
-            idx++;
+            Arrays.sort(tmpArr);
+            Arrays.sort(tmpReverseArr);
+
+            int cnt1 = Arrays.binarySearch(tmpArr, reverseNow) + 1;
+            int cnt2 = Arrays.binarySearch(tmpReverseArr, now) + 1;
+
+            System.out.println(cnt2 + " " + cnt1);
         }
     }
 }
