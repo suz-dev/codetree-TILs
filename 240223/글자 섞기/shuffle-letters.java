@@ -6,37 +6,45 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
-        String[] arr = new String[n];
-        String[] reverseArr = new String[n];
 
-        // 문자열 입력 및 정렬
+        Map<String, String[]> map = new HashMap<>();
+
+        List<String> list = new ArrayList<>();
+        List<String> newList = new ArrayList<>();
+        List<String> reverseList = new ArrayList<>();
+
         for(int i = 0; i < n; i++){
             String str = br.readLine();
             char[] chars = str.toCharArray();
             Arrays.sort(chars);
 
-            arr[i] = new String(chars);  // 알파벳 오름차순
-            reverseArr[i] = new StringBuilder(arr[i]).reverse().toString();    // 알파벳 내림차순
+            String sortedStr = new String(chars);
+            String reversedStr = new StringBuilder(sortedStr).reverse().toString();
+
+            String[] vals = {sortedStr, reversedStr};
+            map.put(str, vals);
+
+            list.add(str);
+            newList.add(sortedStr);
+            reverseList.add(reversedStr);
         }
 
-        // 문자열 비교
+        Collections.sort(newList);
+        Collections.sort(reverseList);
+
         for(int i = 0; i < n; i++){
-            String now = arr[i];
-            String reverseNow = reverseArr[i];
+            String now = list.get(i);
+            String min = map.get(now)[0];
+            String max = map.get(now)[1];
 
-            String[] tmpArr = Arrays.copyOf(arr, arr.length);
-            String[] tmpReverseArr = Arrays.copyOf(reverseArr, reverseArr.length);
+            int cnt1 = 1;
+            int cnt2 = 1;
+            for(int j = 0; j < n; j++){
+                if(!newList.get(j).equals(min) && reverseList.get(j).compareTo(min) < 0) cnt1++;
+                if(!reverseList.get(j).equals(max) && newList.get(j).compareTo(max) < 0) cnt2++;
+            }
 
-            tmpArr[i] = reverseNow;
-            tmpReverseArr[i] = now;
-
-            Arrays.sort(tmpArr);
-            Arrays.sort(tmpReverseArr);
-
-            int cnt1 = Arrays.binarySearch(tmpArr, reverseNow) + 1;
-            int cnt2 = Arrays.binarySearch(tmpReverseArr, now) + 1;
-
-            System.out.println(cnt2 + " " + cnt1);
+            System.out.println(cnt1 + " " + cnt2);
         }
     }
 }
