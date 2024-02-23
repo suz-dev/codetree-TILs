@@ -41,7 +41,7 @@ public class Main {
             int cnt2 = 1;
             for(int j = 0; j < n; j++){
                 if(!newList.get(j).equals(min) && reverseList.get(j).compareTo(min) < 0) cnt1++;
-                if(!reverseList.get(j).equals(max) && newList.get(j).compareTo(max) < 0) cnt2++;
+                if(!reverseList.get(j).equals(max) && newList.get(j).compareTo(max) <= 0) cnt2++;
             }
 
             System.out.println(cnt1 + " " + cnt2);
