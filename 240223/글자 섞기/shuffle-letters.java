@@ -2,16 +2,21 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
+    static int n;
+    static ArrayList<String> list, newList, reverseList;
+    static Map<String, String[]> map;
+
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = Integer.parseInt(br.readLine());
+        n = Integer.parseInt(br.readLine());
 
-        Map<String, String[]> map = new HashMap<>();
+        map = new HashMap<>();
 
-        List<String> list = new ArrayList<>();
-        List<String> newList = new ArrayList<>();
-        List<String> reverseList = new ArrayList<>();
+        list = new ArrayList<>();
+        newList = new ArrayList<>();
+        reverseList = new ArrayList<>();
 
         for(int i = 0; i < n; i++){
             String str = br.readLine();
@@ -37,13 +42,21 @@ public class Main {
             String min = map.get(now)[0];
             String max = map.get(now)[1];
 
-            int cnt1 = 1;
-            int cnt2 = 1;
-            for(int j = 0; j < n; j++){
-                if(!newList.get(j).equals(min) && reverseList.get(j).compareTo(min) < 0) cnt1++;
-                if(!reverseList.get(j).equals(max) && newList.get(j).compareTo(max) <= 0) cnt2++;
-            }
+            int idx1 = Collections.binarySearch(newList, min);
+            int idx2 = Collections.binarySearch(reverseList, max);
 
+            newList.remove(idx1);
+            reverseList.remove(idx2);
+
+            int cnt1 = Collections.binarySearch(reverseList, min);
+            int cnt2 = Collections.binarySearch(newList, max);
+
+            cnt1 *= (-1);
+            cnt2 *= (-1);
+
+            newList.add(idx1, min);
+            reverseList.add(idx2, max);
+   
             System.out.println(cnt1 + " " + cnt2);
         }
     }
